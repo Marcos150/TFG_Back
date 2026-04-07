@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\SheetMusic;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class SheetMusicController extends Controller
@@ -13,7 +12,9 @@ class SheetMusicController extends Controller
      */
     public function index()
     {
-        //
+        $sheetMusic = SheetMusic::all();
+
+        return response()->json($sheetMusic);
     }
 
     /**
@@ -21,7 +22,9 @@ class SheetMusicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sheetMusic = SheetMusic::create($request->all());
+
+        return response()->json($sheetMusic, 201);
     }
 
     /**
@@ -29,18 +32,9 @@ class SheetMusicController extends Controller
      */
     public function show(string $id): \Illuminate\Http\JsonResponse
     {
-       /*  $sheetMusic = DB::table('sheet_musics')
-            ->where('id', $id)
-            ->first();
-         */
-        $otherSheetMusic = SheetMusic::find($id);
+        $sheetMusic = SheetMusic::find($id);
 
-        return response()->json([
-            'id' => $id,
-            'title' => 'Example Sheet Music',
-            'author' => 'John Doe',
-            'tags' => ['Classical', 'Piano'],
-        ]);
+        return response()->json($sheetMusic);
     }
 
     /**
@@ -48,7 +42,10 @@ class SheetMusicController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $sheetMusic = SheetMusic::find($id);
+        $sheetMusic->update($request->all());
+
+        return response()->json($sheetMusic);
     }
 
     /**
@@ -56,6 +53,8 @@ class SheetMusicController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        SheetMusic::destroy($id);
+
+        return response()->json(null, 204);
     }
 }
