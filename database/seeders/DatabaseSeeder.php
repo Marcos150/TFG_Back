@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\SheetMusic;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,5 +23,16 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $sheetMusic = SheetMusic::create([
+            'title' => 'Amparito Roca',
+            'author' => 'Jaume Texidor'
+        ]);
+
+        $tag = Tag::create([
+            'name' => 'Pasodoble'
+        ]);
+
+        $sheetMusic->tags()->attach($tag->id);
     }
 }
