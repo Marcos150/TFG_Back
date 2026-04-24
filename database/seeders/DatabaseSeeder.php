@@ -26,13 +26,16 @@ class DatabaseSeeder extends Seeder
 
         $sheetMusic = SheetMusic::create([
             'title' => 'Amparito Roca',
-            'author' => 'Jaume Texidor'
+            'author' => 'Jaume Texidor',
         ]);
 
         $tag = Tag::create([
-            'name' => 'Pasodoble'
+            'name' => 'Pasodoble',
         ]);
 
         $sheetMusic->tags()->attach($tag->id);
+        Tag::create([
+            'name' => 'Clásica',
+        ]);
     }
 }

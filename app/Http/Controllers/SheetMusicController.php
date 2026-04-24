@@ -12,7 +12,7 @@ class SheetMusicController extends Controller
      */
     public function index()
     {
-        $sheetMusic = SheetMusic::all();
+        $sheetMusic = SheetMusic::all()->load('tags');
 
         return response()->json($sheetMusic);
     }
@@ -22,7 +22,12 @@ class SheetMusicController extends Controller
      */
     public function store(Request $request)
     {
-        $sheetMusic = SheetMusic::create($request->all());
+        $path = $request->file('file')->store('files');
+        $sheetMusic = SheetMusic::create([
+            'title' => $request->input('title'),
+            'author' => $request->input('author'),
+            'file_path' => $path,
+        ]);
 
         return response()->json($sheetMusic, 201);
     }
@@ -32,7 +37,7 @@ class SheetMusicController extends Controller
      */
     public function show(string $id): \Illuminate\Http\JsonResponse
     {
-        $sheetMusic = SheetMusic::find($id);
+        $sheetMusic = SheetMusic::find($id)->load('tags');
 
         return response()->json($sheetMusic);
     }

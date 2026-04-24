@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $id
  * @property string $title
  * @property string $author
+ * @property string $file_path
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tag> $tags
@@ -28,6 +29,7 @@ class SheetMusic extends Model
     protected $fillable = [
         'title',
         'author',
+        'file_path',
     ];
 
     public function tags() : BelongsToMany
