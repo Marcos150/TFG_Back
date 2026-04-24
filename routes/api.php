@@ -11,3 +11,4 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('/sheet-music', SheetMusicController::class);
 Route::apiResource('/tag', TagController::class);
+Route::get('/sheet-music/{id}/file', [SheetMusicController::class, 'getFile']);

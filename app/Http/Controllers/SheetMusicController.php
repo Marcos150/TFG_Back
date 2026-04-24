@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SheetMusic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SheetMusicController extends Controller
 {
@@ -61,5 +62,15 @@ class SheetMusicController extends Controller
         SheetMusic::destroy($id);
 
         return response()->json(null, 204);
+    }
+
+    public function getFile(string $id)
+    {
+        $sheetMusic = SheetMusic::find($id);
+
+        $file = Storage::get($sheetMusic->file_path);
+
+        $contentType = Storage::mimeType($sheetMusic->file_path);
+        return response($file, 200)->header('Content-Type', $contentType);
     }
 }

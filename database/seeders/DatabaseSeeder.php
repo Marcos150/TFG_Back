@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $sheetMusic = SheetMusic::create([
             'title' => 'Amparito Roca',
             'author' => 'Jaume Texidor',
+            'file_path' => 'files/amparito.pdf',
         ]);
 
         $tag = Tag::create([
@@ -36,6 +37,12 @@ class DatabaseSeeder extends Seeder
         $sheetMusic->tags()->attach($tag->id);
         Tag::create([
             'name' => 'Clásica',
+        ]);
+
+        SheetMusic::create([
+            'title' => 'Amparito Roca pero en png',
+            'author' => 'Jaume Texidor',
+            'file_path' => 'files/amparito.png',
         ]);
     }
 }
