@@ -30,6 +30,15 @@ class SheetMusicController extends Controller
             'file_path' => $path,
         ]);
 
+        if ($request->has('tags')) {
+            $tagsData = json_decode($request->tags, true);
+
+            if (is_array($tagsData)) {
+                $tagIds = collect($tagsData)->pluck('id')->toArray();
+                $sheetMusic->tags()->sync($tagIds);
+            }
+        }
+
         return response()->json($sheetMusic, 201);
     }
 
