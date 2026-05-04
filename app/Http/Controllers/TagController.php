@@ -14,7 +14,7 @@ class TagController extends Controller
     {
         $tag = Tag::all();
 
-        return response()->json($tag);
+        return response()->json($tag->toResourceCollection());
     }
 
     /**

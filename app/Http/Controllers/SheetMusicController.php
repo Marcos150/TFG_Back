@@ -15,7 +15,7 @@ class SheetMusicController extends Controller
     {
         $sheetMusic = SheetMusic::all()->load('tags');
 
-        return response()->json($sheetMusic);
+        return response()->json($sheetMusic->toResourceCollection());
     }
 
     /**

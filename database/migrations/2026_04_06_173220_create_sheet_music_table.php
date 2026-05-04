@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('author');
             $table->string('file_path')->nullable();
+            $table->json('measures')->nullable();
             $table->timestamps();
         });
     }

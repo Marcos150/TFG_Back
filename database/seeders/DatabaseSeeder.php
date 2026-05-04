@@ -44,5 +44,17 @@ class DatabaseSeeder extends Seeder
             'author' => 'Jaume Texidor',
             'file_path' => 'files/amparito.png',
         ]);
+
+        SheetMusic::create([
+            'title' => 'Final Fantasy theme',
+            'author' => 'Nobuo Uematsu',
+            'file_path' => 'files/finalFantasy.png',
+        ]);
+
+        SheetMusic::create([
+            'title' => 'Final Fantasy IV Love',
+            'author' => 'Nobuo Uematsu',
+            'file_path' => 'files/ffLove.png',
+        ]);
     }
 }
