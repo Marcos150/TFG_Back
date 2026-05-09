@@ -6,15 +6,16 @@ use App\Models\SheetMusic;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
 
 class SheetMusicController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sheetMusic = SheetMusic::all()->load('tags');
+        $sheetMusic = $request->user()->sheetMusic()->with('tags')->get();
 
         return response()->json($sheetMusic->toResourceCollection());
     }
@@ -40,6 +41,7 @@ class SheetMusicController extends Controller
             'author' => $request->input('author'),
             'file_path' => $path,
             'measures' => $sortedMeasures,
+            'user_id' => $request->user()->id,
         ]);
 
         if ($request->has('tags')) {
@@ -59,7 +61,8 @@ class SheetMusicController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $sheetMusic = SheetMusic::find($id)->load('tags');
+        $sheetMusic = SheetMusic::with('tags')->find($id);
+        Gate::authorize('view', $sheetMusic);
 
         return response()->json($sheetMusic);
     }
@@ -70,7 +73,10 @@ class SheetMusicController extends Controller
     public function update(Request $request, string $id)
     {
         $sheetMusic = SheetMusic::find($id);
+        Gate::authorize('update', $sheetMusic);
+
         $measures = $request->input('measures');
+
         $sortedMeasures = collect($measures)->sort(function ($a, $b) {
             $tolerance = 0.05;
 
@@ -90,6 +96,7 @@ class SheetMusicController extends Controller
      */
     public function destroy(string $id)
     {
+        Gate::authorize('delete', $id);
         SheetMusic::destroy($id);
 
         return response()->json(null, 204);
@@ -98,6 +105,7 @@ class SheetMusicController extends Controller
     public function getFile(string $id)
     {
         $sheetMusic = SheetMusic::find($id);
+        Gate::authorize('view', $sheetMusic);
 
         $file = Storage::get($sheetMusic->file_path);
 

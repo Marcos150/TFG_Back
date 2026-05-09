@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('file_path')->nullable();
             $table->json('measures')->nullable();
             $table->timestamps();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 

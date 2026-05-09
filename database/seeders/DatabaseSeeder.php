@@ -19,14 +19,21 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'email' => 'test@example.com',
+        $user = User::factory()->create([
+            'email' => 'a@example.com',
+            'password' => '1',
+        ]);
+
+        $user2 = User::factory()->create([
+            'email' => 'test2@example.com',
         ]);
 
         $sheetMusic = SheetMusic::create([
             'title' => 'Amparito Roca',
             'author' => 'Jaume Texidor',
             'file_path' => 'files/amparito.pdf',
+            'measures' => [],
+            'user_id' => $user->id,
         ]);
 
         $tag = Tag::create([
@@ -42,18 +49,24 @@ class DatabaseSeeder extends Seeder
             'title' => 'Amparito Roca pero en png',
             'author' => 'Jaume Texidor',
             'file_path' => 'files/amparito.png',
+            'measures' => [],
+            'user_id' => $user2->id,
         ]);
 
         SheetMusic::create([
             'title' => 'Final Fantasy theme',
             'author' => 'Nobuo Uematsu',
             'file_path' => 'files/finalFantasy.png',
+            'measures' => [],
+            'user_id' => $user->id,
         ]);
 
         SheetMusic::create([
             'title' => 'Final Fantasy IV Love',
             'author' => 'Nobuo Uematsu',
             'file_path' => 'files/ffLove.png',
+            'measures' => [],
+            'user_id' => $user->id,
         ]);
     }
 }
