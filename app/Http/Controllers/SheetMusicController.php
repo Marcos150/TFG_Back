@@ -96,7 +96,8 @@ class SheetMusicController extends Controller
      */
     public function destroy(string $id)
     {
-        Gate::authorize('delete', $id);
+        $sheetMusic = SheetMusic::find($id);
+        Gate::authorize('delete', $sheetMusic);
         SheetMusic::destroy($id);
 
         return response()->json(null, 204);
