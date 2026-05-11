@@ -12,4 +12,12 @@ class UserController extends Controller
         $user = $request->user();
         return response()->json($user->toResource());
     }
+
+    public function destroy(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        $user->delete();
+
+        return response()->json(null, 204);
+    }
 }

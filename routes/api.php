@@ -20,3 +20,4 @@ Route::apiResource('/tag', TagController::class)->middleware('auth:sanctum');
 Route::get('/sheet-music/{id}/file', [SheetMusicController::class, 'getFile'])->middleware('auth:sanctum');
 
 Route::get('/profile', [UserController::class, 'show'])->middleware('auth:sanctum');
+Route::delete('/profile', [UserController::class, 'destroy'])->middleware('auth:sanctum');
